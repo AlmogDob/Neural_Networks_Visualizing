@@ -12,17 +12,17 @@ clean_display:
 
 ############################################################
 
-nn: build_nn run_nn clean_nn
-	@echo done nn
+dump_nn: build_dump_nn run_dump_nn clean_dump_nn
+	@echo done dump_nn
 
-build_nn: nn.c
-	gcc -Wall -Wextra ./nn.c -lSDL2 -lSDL2_ttf -lm -o nn
+build_dump_nn: dump_nn.c
+	gcc -Wall -Wextra ./dump_nn.c -lm -o dump_nn
 
-run_nn:
-	./nn
+run_dump_nn:
+	./dump_nn
 
-clean_nn:
-	rm nn
+clean_dump_nn:
+	rm dump_nn
 
 ############################################################
 
