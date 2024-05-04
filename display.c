@@ -48,6 +48,8 @@ int to_update = 1;
 size_t previous_frame_time = 0;
 int left_button_pressed = 0;
 int to_limit_fps = 1;
+int current_window_width = WINDOW_WIDTH;
+int current_window_height = WINDOW_HEIGHT;
 
 int main()
 {
@@ -81,9 +83,9 @@ int initialize_window(void)
     window = SDL_CreateWindow(NULL,
                               SDL_WINDOWPOS_CENTERED,
                               SDL_WINDOWPOS_CENTERED,
-                              WINDOW_WIDTH,
-                              WINDOW_HEIGHT,
-                              0
+                              current_window_width,
+                              current_window_height,
+                              SDL_WINDOW_RESIZABLE
                               );
     if (!window) {
         fprintf(stderr, "Error creating SDL window.\n");
@@ -187,6 +189,14 @@ void update_window(void)
 
     text_texture = SDL_CreateTextureFromSurface(renderer,text_surface);
     SDL_FreeSurface(text_surface);
+
+    SDL_GetWindowSize(window, &current_window_width, &current_window_height);
+    /*test*/
+    // if (current_window_height != WINDOW_HEIGHT && current_window_width != WINDOW_WIDTH) {
+    //     dprintINT(current_window_width);
+    //     dprintINT(current_window_height);
+    // }
+    /*test*/
 
     /*----------------------------------------------------------------------------*/
 

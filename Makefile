@@ -26,6 +26,20 @@ clean_nn:
 
 ############################################################
 
+show: build_show run_show clean_show
+	@echo done show
+
+build_show: show.c
+	gcc -Wall -Wextra ./show.c -lSDL2 -lSDL2_ttf -lm -o show
+
+run_show:
+	./show
+
+clean_show:
+	rm show
+
+############################################################
+
 test:
 	gcc -Wall -Wextra ./test.c -lSDL2 -lSDL2_ttf -lm -o test
 	./test
