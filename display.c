@@ -16,6 +16,7 @@
 #define FRAME_TARGET_TIME (1000 / FPS)
 #define dprintINT(expr) printf(#expr " = %d\n", expr)
 #define dprintF(expr) printf(#expr " = %g\n", expr)
+#define Hex2RGBA(x) (x>>(8*0)&0xFF), (x>>(8*1)&0xFF), (x>>(8*2)&0xFF), (x>>(8*3)&0xFF)
 
 #define PI 3.14159265359
 
@@ -50,6 +51,9 @@ int left_button_pressed = 0;
 int to_limit_fps = 1;
 int current_window_width = WINDOW_WIDTH;
 int current_window_height = WINDOW_HEIGHT;
+int to_clear_the_screnn = 1;
+int to_show_fps = 1;
+int I_am_rendering = 0;
 
 int main()
 {
@@ -206,17 +210,23 @@ void update_window(void)
 
 void render_window(void)
 {
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-    SDL_RenderClear(renderer);
-    /*------------------------------------------------------------------------*/
+    if(!I_am_rendering) {
+        if (to_clear_the_screnn) {
+            SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+            SDL_RenderClear(renderer);
+        }
+        /*------------------------------------------------------------------------*/
 
-    render();
+        render();
 
-    /*------------------------------------------------------------------------*/
+        /*------------------------------------------------------------------------*/
 
-    SDL_RenderCopy(renderer, text_texture, NULL, &fps_place);
+        if(to_show_fps) {
+            SDL_RenderCopy(renderer, text_texture, NULL, &fps_place);
+        }
 
-    SDL_RenderPresent(renderer);
+        SDL_RenderPresent(renderer);
+    }
 }
 
 void destroy_window(void)
